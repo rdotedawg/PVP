@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Super", "soma1\Super.csproj", "{0F2E0C84-1D8F-4F9D-BBCE-4501542609BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PVP", "soma1\PVP.csproj", "{0F2E0C84-1D8F-4F9D-BBCE-4501542609BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

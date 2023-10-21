@@ -23,7 +23,7 @@ using System.Security.Principal;
 namespace soma1
 {
 
-
+    //uplaoded
 
     public partial class Mainform : Form
 
@@ -764,7 +764,11 @@ namespace soma1
             }
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
 
+            MessageBox.Show("Thanks for clicking me", "Hey");
+        }
     }
     public static class AdminRelauncher
     {
