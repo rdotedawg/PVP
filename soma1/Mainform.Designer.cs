@@ -48,7 +48,6 @@
             this.autoslow = new System.Windows.Forms.CheckBox();
             this.autoweaken = new System.Windows.Forms.CheckBox();
             this.autosyrum = new System.Windows.Forms.CheckBox();
-            this.botspeed = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.autohealth = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -63,11 +62,18 @@
             this.botactive = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.syrumspeed = new System.Windows.Forms.ComboBox();
+            this.botspeed = new System.Windows.Forms.TrackBar();
+            this.syrumspeed = new System.Windows.Forms.TrackBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.potioncheck = new System.Windows.Forms.CheckBox();
+            this.syrumcheck = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mpslider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.healthslider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.botspeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.syrumspeed)).BeginInit();
             this.SuspendLayout();
             // 
             // hook
@@ -276,26 +282,10 @@
             this.autosyrum.Text = "AutoSyrum";
             this.autosyrum.UseVisualStyleBackColor = true;
             // 
-            // botspeed
-            // 
-            this.botspeed.FormattingEnabled = true;
-            this.botspeed.Items.AddRange(new object[] {
-            "1 - Fastest",
-            "2 - Fast",
-            "3 - Medium",
-            "4 - Slow",
-            "5 - Slowest",
-            "6 - Randomise"});
-            this.botspeed.Location = new System.Drawing.Point(419, 47);
-            this.botspeed.MaxDropDownItems = 5;
-            this.botspeed.Name = "botspeed";
-            this.botspeed.Size = new System.Drawing.Size(110, 21);
-            this.botspeed.TabIndex = 11;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(339, 51);
+            this.label3.Location = new System.Drawing.Point(301, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 13);
             this.label3.TabIndex = 12;
@@ -417,7 +407,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(322, 146);
+            this.label8.Location = new System.Drawing.Point(328, 212);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(184, 13);
             this.label8.TabIndex = 21;
@@ -426,35 +416,86 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(339, 78);
+            this.label4.Location = new System.Drawing.Point(301, 150);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 13);
             this.label4.TabIndex = 23;
             this.label4.Text = "Syrum Speed:";
             // 
+            // botspeed
+            // 
+            this.botspeed.Location = new System.Drawing.Point(381, 75);
+            this.botspeed.Maximum = 2000;
+            this.botspeed.Minimum = 50;
+            this.botspeed.Name = "botspeed";
+            this.botspeed.Size = new System.Drawing.Size(104, 45);
+            this.botspeed.TabIndex = 4;
+            this.botspeed.Value = 300;
+            this.botspeed.ValueChanged += new System.EventHandler(this.botspeed_ValueChanged);
+            // 
             // syrumspeed
             // 
-            this.syrumspeed.FormattingEnabled = true;
-            this.syrumspeed.Items.AddRange(new object[] {
-            "1 - Fastest",
-            "2 - Fast",
-            "3 - Medium",
-            "4 - Slow",
-            "5 - Slowest",
-            "6 - Randomise"});
-            this.syrumspeed.Location = new System.Drawing.Point(419, 74);
-            this.syrumspeed.MaxDropDownItems = 5;
+            this.syrumspeed.Location = new System.Drawing.Point(381, 150);
+            this.syrumspeed.Maximum = 2000;
+            this.syrumspeed.Minimum = 50;
             this.syrumspeed.Name = "syrumspeed";
-            this.syrumspeed.Size = new System.Drawing.Size(110, 21);
-            this.syrumspeed.TabIndex = 22;
+            this.syrumspeed.Size = new System.Drawing.Size(104, 45);
+            this.syrumspeed.TabIndex = 24;
+            this.syrumspeed.Value = 300;
+            this.syrumspeed.ValueChanged += new System.EventHandler(this.syrumspeed_ValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(491, 78);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "300 ms";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(491, 150);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(41, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "300 ms";
+            // 
+            // potioncheck
+            // 
+            this.potioncheck.AutoSize = true;
+            this.potioncheck.Location = new System.Drawing.Point(352, 52);
+            this.potioncheck.Name = "potioncheck";
+            this.potioncheck.Size = new System.Drawing.Size(133, 17);
+            this.potioncheck.TabIndex = 26;
+            this.potioncheck.Text = "Random Potion Speed";
+            this.potioncheck.UseVisualStyleBackColor = true;
+            this.potioncheck.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // syrumcheck
+            // 
+            this.syrumcheck.AutoSize = true;
+            this.syrumcheck.Location = new System.Drawing.Point(352, 127);
+            this.syrumcheck.Name = "syrumcheck";
+            this.syrumcheck.Size = new System.Drawing.Size(132, 17);
+            this.syrumcheck.TabIndex = 27;
+            this.syrumcheck.Text = "Random Syrum Speed";
+            this.syrumcheck.UseVisualStyleBackColor = true;
+            this.syrumcheck.CheckedChanged += new System.EventHandler(this.syrumcheck_CheckedChanged);
             // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(541, 257);
-            this.Controls.Add(this.label4);
+            this.ClientSize = new System.Drawing.Size(561, 257);
+            this.Controls.Add(this.syrumcheck);
+            this.Controls.Add(this.potioncheck);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.syrumspeed);
+            this.Controls.Add(this.botspeed);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.botactive);
             this.Controls.Add(this.label6);
@@ -464,7 +505,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.autohealth);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.botspeed);
             this.Controls.Add(this.autosyrum);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.charname);
@@ -485,6 +525,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mpslider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.healthslider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.botspeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.syrumspeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -505,7 +547,6 @@
         private System.Windows.Forms.CheckBox autoslow;
         private System.Windows.Forms.CheckBox autosyrum;
         private System.Windows.Forms.CheckBox autogiggle;
-        private System.Windows.Forms.ComboBox botspeed;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox autohealth;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -526,7 +567,12 @@
         private System.Windows.Forms.Label botactive;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox syrumspeed;
+        private System.Windows.Forms.TrackBar botspeed;
+        private System.Windows.Forms.TrackBar syrumspeed;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox potioncheck;
+        private System.Windows.Forms.CheckBox syrumcheck;
     }
 }
 

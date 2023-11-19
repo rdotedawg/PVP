@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Security.Principal;
 
 namespace soma1
-{
+{//done
 
 
     public partial class Mainform : Form
@@ -104,58 +104,34 @@ namespace soma1
                         hook.Invoke(new Action(() => hook.Text = "Process found"));
 
                         charname.Invoke(new Action(() => charname.Text = m.ReadString("base+0x2D8600, 58, 0")));        //Check character name
-                        Invoke(new Action(() => speed = botspeed.SelectedIndex));
-                        Invoke(new Action(() => syrumspeed1 = syrumspeed.SelectedIndex));
+                        Invoke(new Action(() => speed = botspeed.Value));
+                        Invoke(new Action(() => syrumspeed1 = syrumspeed.Value));
 
-                        switch (speed) //Set speed for bot
+
+                        if (potioncheck.Checked == true)
                         {
-                            case 0:
-                                speed = 10;
-                                break;
-                            case 1:
-                                speed = 100;
-                                break;
-                            case 2:
-                                speed = 400;
-                                break;
-                            case 3:
-                                speed = 900;
-                                break;
-                            case 4:
-                                speed = 1500;
-                                break;
-                            case 5:
-                                Random random = new Random();
-                                int num = random.Next(200, 1500);
-                                speed = num;
+                           // Invoke(new Action(() => speed = botspeed.Value));
 
-                                break;
+                            Random random = new Random();
+                            int num = random.Next(200, 1500);
+                            speed = num;
+                            botspeed.Invoke(new Action(() => label5.Text = speed.ToString() + " ms"));
+
                         }
 
-                        switch (syrumspeed1) //Set extra delay for syrums
-                        {
-                            case 0:
-                                syrumspeed1 = 10;
-                                break;
-                            case 1:
-                                syrumspeed1 = 100;
-                                break;
-                            case 2:
-                                syrumspeed1 = 400;
-                                break;
-                            case 3:
-                                syrumspeed1 = 900;
-                                break;
-                            case 4:
-                                syrumspeed1 = 1500;
-                                break;
-                            case 5:
-                                Random random = new Random();
-                                int num = random.Next(200, 1500);
-                                speed = num;
 
-                                break;
+
+                        if (syrumcheck.Checked == true)
+                        {
+                            //Invoke(new Action(() => speed = botspeed.Value));
+
+                            Random random = new Random();
+                            int num = random.Next(200, 2000);
+                            syrumspeed1 = num;
+                            botspeed.Invoke(new Action(() => label7.Text = syrumspeed1.ToString() + " ms"));
+
                         }
+
 
 
                         System.Threading.Thread.Sleep(100);
@@ -343,7 +319,26 @@ namespace soma1
                         {
                             Thread.Sleep(syrumspeed1);
                             SendKeys.SendWait(ForestF);
-                            Invoke(new Action(() => weaknum.Text = (int.Parse(weaknum.Text) + 1).ToString()));
+
+                            Thread.Sleep(10);
+                            m.WriteMemory("base+002D8600, 134 , 20, 0, 14", "int", "0");
+                            m.WriteMemory("base+002D8600, 134 , 20, 0, 0", "int", "63");
+                            Spell = m.ReadByte("base+002D8600, 134, 20, 0, 0").ToString("X");
+                            Thread.Sleep(10);
+                            SpellActive = m.ReadByte("base+002D8600, 134 , 20, 0, 14").ToString("X");
+
+                            if (SpellActive == "1" && Spell == "3F")
+                            {
+                                if (DemonF != null)
+                                {
+                                    Thread.Sleep(syrumspeed1);
+                                    SendKeys.SendWait(DemonF);
+                                    DemonF = null;
+
+                                }
+                            }
+
+                                    Invoke(new Action(() => weaknum.Text = (int.Parse(weaknum.Text) + 1).ToString()));
                             ForestF = null;
                         }
                     }
@@ -726,8 +721,9 @@ namespace soma1
         private void Mainform_Load(object sender, EventArgs e)
         {
             AdminRelauncher.RelaunchIfNotAdmin();
-            botspeed.Invoke(new Action(() => botspeed.SelectedIndex = 1));
-            syrumspeed.Invoke(new Action(() => syrumspeed.SelectedIndex = 5));
+            botspeed.Invoke(new Action(() => botspeed.Value = 100));
+            syrumspeed.Invoke(new Action(() => syrumspeed.Value = 300));
+            syrumcheck.Checked = true;
 
         }
 
@@ -763,7 +759,53 @@ namespace soma1
             }
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            m.WriteMemory("base+2DC254, 24", "int", "200", null, null, true);
+        }
 
+        private void botspeed_ValueChanged(object sender, EventArgs e)
+        {
+            botspeed.Invoke(new Action(() => label5.Text = botspeed.Value.ToString() + " ms"));
+        }
+
+        private void syrumspeed_ValueChanged(object sender, EventArgs e)
+        {
+            syrumspeed.Invoke(new Action(() => label7.Text = syrumspeed.Value.ToString() + " ms"));
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            switch (potioncheck.Checked)
+            {
+                case true:
+
+                    botspeed.Enabled = false;
+                    botspeed.Invoke(new Action(() => label5.Text = "RANDOM"));
+                    break;
+                case false:
+                    botspeed.Invoke(new Action(() => label5.Text = botspeed.Value.ToString() + " ms"));
+                    botspeed.Enabled = true;
+                    break;
+            }
+
+        }
+
+        private void syrumcheck_CheckedChanged(object sender, EventArgs e)
+        {
+            switch (syrumcheck.Checked)
+            {
+                case true:
+
+                    syrumspeed.Enabled = false;
+                    syrumspeed.Invoke(new Action(() => label7.Text = "RANDOM"));
+                    break;
+                case false:
+                    syrumspeed.Invoke(new Action(() => label7.Text = syrumspeed.Value.ToString() + " ms"));
+                    syrumspeed.Enabled = true;
+                    break;
+            }
+        }
     }
     public static class AdminRelauncher
     {
