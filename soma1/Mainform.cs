@@ -427,7 +427,7 @@ namespace soma1
                     }
                 }
 
-                if (autozombie.Checked) //Check for Giggle
+                if (autogiggle.Checked) //Check for Giggle
                 {
                     m.WriteMemory("base+002D8600, 134 , 20, 0, 14", "int", "0");
                     m.WriteMemory("base+002D8600, 134 , 20, 0, 0", "int", "65");
